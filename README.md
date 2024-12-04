@@ -11,7 +11,21 @@ try and stay away from looking at the local leaderboards.
 ## Diary
 
 ### Day 1
+Easy enough...
+Learnt about using cargo for projects, rather than compiling with rustup as I had
+been doing so far, and using cargo-clippy for linting beyond the compiler
+warnings.
 
+Also:
+- iterators are useful but not where my mind goes by default.
+- `unwrap()` - when a function could return something or none it comes back as an
+  `Option`. We should really handle this, but unwrap allows us to access the return value and panic if it is none.
+- Still getting my head around referencing and borrowing naturally - because you
+  can't be careless in Rust!!
+  - Think of `&val` being like `intent(in)` and `mut &val` like `intent(inout)`?
+- Functions should not accept `&Vec<T>` but instead slices of `&[T]` as more generic.
+
+### Day 2
 
 ## Licensing
 

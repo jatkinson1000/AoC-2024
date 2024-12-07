@@ -1,4 +1,4 @@
-# Advent of Code 2024 - @jatkinson1000
+# Advent of Code 2024
 
 ## Overview
 
@@ -39,6 +39,18 @@ Referencing is still tricky - namely knowing when something need not be a refere
   Need to read about macros
 - Use `&&` not `and` and `||` not `or`.
 
+### Day 3
+
+First use of an external crate (regex). Easiest way top do this was to use `cargo add regex` which handles the dependencies in the `Cargo.toml` file automagically.
+
+These oneliners are quite nice, but due to the strictness of the compiler it can be tricky to work out the correct types. Can't just lob something and see what happens like I would in Python.
+
+- Slices must have a size known ta compile time, otherwise use a `Vec`.
+- A `String` is not a `str`. A `str` is a slice, and common as a `&str` when obtained
+  from some other `String` or function, e.g. `var.lines()`.
+  Use `String::from()` to convert a `str` to a `String`.
+- As well as an inline function definition `map()` can take a function.
+- Made input file a command line argument to the code to make things a bit cleaner.
 
 ## Licensing
 

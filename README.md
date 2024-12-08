@@ -41,7 +41,11 @@ Referencing is still tricky - namely knowing when something need not be a refere
 
 ### Day 3
 
-First use of an external crate (regex). Easiest way top do this was to use `cargo add regex` which handles the dependencies in the `Cargo.toml` file automagically.
+Part 2 was a pain because I had correct code but treated each
+new line as a separate "program" to be summed, rather than combining all lines
+into a single entity. Oh, AoC...
+
+First use of an external crate (regex). Easiest way to do this was to use `cargo add regex` which handles the dependencies in the `Cargo.toml` file automagically.
 
 These oneliners are quite nice, but due to the strictness of the compiler it can be tricky to work out the correct types. Can't just lob something and see what happens like I would in Python.
 
@@ -49,7 +53,7 @@ These oneliners are quite nice, but due to the strictness of the compiler it can
 - A `String` is not a `str`. A `str` is a slice, and common as a `&str` when obtained
   from some other `String` or function, e.g. `var.lines()`.
   Use `String::from()` to convert a `str` to a `String`.
-- As well as an inline function definition `map()` can take a function.
+- As well as an inline function definition `map()` can take a function name (no `()`!).
 - Made input file a command line argument to the code to make things a bit cleaner.
 
 ## Licensing

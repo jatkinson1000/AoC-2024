@@ -3,15 +3,15 @@ use std::env;
 use std::fs;
 use std::path::Path;
 
-fn readfile(file_path: &Path) -> Vec<String> {
+fn readfile(file_path: &Path) -> String {
     let contents = fs::read_to_string(file_path).expect("Could not read the file");
 
-    // Split text file into an interator and then map to a vector
-    let sections = contents.lines().map(String::from).collect();
+    // Read all text into one long string, ignoring newlines
+    // Note: I feel the instructions were unclear here and I spent a lot of
+    // time getting wrong answers by treating each line as a separate part.
+    let corrupted_prog = contents.replace("\n", "");
 
-    // println!("sections: {:?}", sections);
-
-    return sections;
+    return corrupted_prog;
 }
 
 fn result_from_section_1(section: &str) -> i32 {
@@ -30,19 +30,34 @@ fn result_from_section_1(section: &str) -> i32 {
                 .find_iter(x)
                 .map(|x| x.as_str().parse::<i32>().unwrap())
                 .product();
-            //.collect();
-            // println!("y: {:?}", y);
             return y;
         })
         // Sum all the products
         .sum();
 
-    // println!("num: {:?}", num);
     return num;
 }
 
+fn result_from_section_2(section: &str) -> i32 {
+    // Cannot use the following as it will eat everything between the first
+    // don't and last do.
+    // let re_dead = Regex::new(r"don't\(\).+do\(\)").unwrap();
+
+    // Split on do() to get blocks to definitely execute, then split on don't()and operate only
+    // non the first (.next()) piece.
+    // on the first part.
+    let splitline_and_sum: i32 = section
+        .split_inclusive("do()")
+        .map(|x| x.split_inclusive("don't()").next().unwrap())
+        // Run part 1 on each of the 'useable' blocks from the section and sum
+        .map(result_from_section_1)
+        .sum();
+
+    return splitline_and_sum;
+}
+
 fn main() {
-    // provide 'real' as command line arg for real input, otherwise use example.
+    // provide file as command line arg
     let args: Vec<String> = env::args().collect();
     if args.len() == 1 {
         println!("Usage: cargo run <filename>");
@@ -50,11 +65,13 @@ fn main() {
     }
     let file_path = Path::new(&args[1]);
 
-    let sections = readfile(file_path);
-    // println!("Sections: {:?}", sections);
+    let corrupted_prog = readfile(file_path);
 
     // Part 1
-    let part1: i32 = sections.iter().map(|x| result_from_section_1(x)).sum();
+    let part1: i32 = result_from_section_1(&corrupted_prog);
+    // Part 2
+    let part2: i32 = result_from_section_2(&corrupted_prog);
 
     println!("Part 1: {}", part1);
+    println!("Part 2: {}", part2);
 }
